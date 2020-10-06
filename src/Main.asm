@@ -22,7 +22,7 @@ section .bss
     decImage         resb    5000000
     imgCont          resd    1
     RSACont          resd    1
-    tablent          resd    1
+    tableCont        resd    1
     r                resd    1
     b                resd    1
     e                resd    1
@@ -37,7 +37,29 @@ CMAIN:
     call    fillDecryptedTable
     ;call    decryptImage        ; Se llama la función para desencriptar la imagen
     ;call    writeImageFile
+    call    testTable
     call    finish              ; Se llama la función de finalización
+    
+testTable:
+    mov     eax, 0
+    jmp     ttaux
+    
+ttaux:
+    cmp     eax, 256
+    je      exittt
+    mov     ebx, 0
+    mov     bh, [decTable + eax]
+    inc     eax
+    mov     bl, [decTable + eax]
+    inc     eax
+    PRINT_CHAR  'R'
+    PRINT_CHAR  ':'
+    PRINT_DEC   4, ebx
+    NEWLINE
+    jmp     ttaux
+    
+exittt:
+    ret
     
 findDAndN:
     mov     ebx, key            ; Se mueve la posición de memoria donde se encuentran los datos de la llave

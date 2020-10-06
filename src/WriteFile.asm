@@ -1,5 +1,3 @@
-%include "io.inc"
-
 section .text
 
 writeImageFile:
