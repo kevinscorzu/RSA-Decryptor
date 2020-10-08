@@ -15,17 +15,18 @@ section .bss
     keyDescriptor    resb    4
     dImageDescriptor resb    4
     encImage         resb    3000000
+    decImage         resb    6000000
     key              resb    100
     d                resw    1
     n                resw    1
-    decTable         resb    508
-    decImage         resb    5000000
-    imgCont          resd    1
-    RSACont          resd    1
-    tableCont        resd    1
+    encTable         resb    510
+    decTable         resb    255
+    decCont          resd    1
+    encCont          resd    1
     r                resd    1
     b                resd    1
     e                resd    1
+    temp             resb    1
    
 section .text
     global  CMAIN
@@ -34,33 +35,10 @@ CMAIN:
     call    readImageFile       ; Se llama la función para leer el archivo de imagen
     call    readKeyFile         ; Se llama la función para leer el archivo de llaves
     call    findDAndN           ; Se llama la función para buscar d y n
-    call    fillDecryptedTable
-    ;call    decryptImage        ; Se llama la función para desencriptar la imagen
-    ;call    writeImageFile
-    call    testTable
+    call    decryptImage        ; Se llama la función para desencriptar la imagen
+    call    writeImageFile
     call    finish              ; Se llama la función de finalización
-    
-testTable:
-    mov     eax, 0
-    jmp     ttaux
-    
-ttaux:
-    cmp     eax, 256
-    je      exittt
-    mov     ebx, 0
-    mov     bh, [decTable + eax]
-    inc     eax
-    mov     bl, [decTable + eax]
-    inc     eax
-    PRINT_CHAR  'R'
-    PRINT_CHAR  ':'
-    PRINT_DEC   4, ebx
-    NEWLINE
-    jmp     ttaux
-    
-exittt:
-    ret
-    
+   
 findDAndN:
     mov     ebx, key            ; Se mueve la posición de memoria donde se encuentran los datos de la llave
     mov     eax, 0              ; Se mueve un 0 a eax para vaciarlo, este es el número encontrado
@@ -72,12 +50,8 @@ findDAndN:
     mov     [n], ax             ; Se almacena el número encontrado en n
     mov     eax, 0
     mov     ax, [d]
-    PRINT_DEC   4, eax
-    NEWLINE
     mov     eax, 0
     mov     ax, [n]
-    PRINT_DEC   4, eax
-    NEWLINE
     ret                         ; Se retorna de la función
     
 finish:

@@ -8,7 +8,7 @@ readImageFile:
     
     mov     [imageDescriptor], eax  ; Se almacena el descriptor de la imagen
     
-    mov     edx, 2000000            ; Cantidad de bytes a leer del archivo, esto es un byte por cada carácter
+    mov     edx, 3000000            ; Cantidad de bytes a leer del archivo, esto es un byte por cada carácter
     mov     ecx, encImage           ; Se mueve la posición de memoria donde se almacenarán los datos leídos del txt
     mov     ebx, [imageDescriptor]  ; Se mueve el descriptor del archivo abierto
     mov     eax, 3                  ; Se ejecuta SYS_READ

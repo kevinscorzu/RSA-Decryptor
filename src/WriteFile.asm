@@ -8,7 +8,7 @@ writeImageFile:
     
     mov     [dImageDescriptor], eax  ; Se almacena el descriptor de la imagen
  
-    mov     edx, [imgCont]             ; number of bytes to write - one for each letter of our contents string
+    mov     edx, [decCont]             ; number of bytes to write - one for each letter of our contents string
     mov     ecx, decImage       ; move the memory address of our contents string into ecx
     mov     ebx, [dImageDescriptor]            ; move the file descriptor of the file we created into ebx
     mov     eax, 4              ; invoke SYS_WRITE (kernel opcode 4)
