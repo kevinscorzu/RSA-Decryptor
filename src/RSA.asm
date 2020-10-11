@@ -2,33 +2,33 @@ section .text
 
 searchTables:                 
     mov     ebx, 0                  ; Se mueve un 0 a ebx para vaciarlo
-    mov     ecx, 0       
-    mov     edx, 0           ; Se mueve un 1 a ecx, este es el contador de la cantidad de valores a aplicar el algoritmo de exponenciación modular
+    mov     ecx, 0                  ; Se mueve un 0 a ecx para vaciarlo
+    mov     edx, 0                  ; Se mueve un 0 a edx para vaciarlo
     jmp     searchTablesAux         ; Se salta a la función auxiliar
     
 searchTablesAux:
-    mov     bx, [encTable + ecx]
-    cmp     ebx, 0
-    je      fillEncryptedTable
-    cmp     ebx, eax
-    je      searchTablesAux2
-    inc     ecx
-    inc     ecx
-    jmp     searchTablesAux
+    mov     bx, [encTable + ecx]    ; Se mueve el valor de la tabla encriptada encontrado a bx
+    cmp     ebx, 0                  ; Se compara ebx con 0
+    je      fillEncryptedTable      ; Si es 0, se salta a la función de llenar la tabla encriptada
+    cmp     ebx, eax                ; Se compara ebx con eax
+    je      searchTablesAux2        ; Si son iguales, se salta a la función auxiliar 2
+    inc     ecx                     ; Sino, se incrementa ecx
+    inc     ecx                     ; Se incrementa ecx
+    jmp     searchTablesAux         ; Se salta al inicio del loop
     
 searchTablesAux2:
-    mov     eax, ecx
-    shr     ecx, 1
-    mov     al, [decTable + ecx]
-    ret
+    mov     eax, ecx                ; Se mueve ecx a eax
+    shr     ecx, 1                  ; Se divide eax entre 2 y se almacena en ecx
+    mov     al, [decTable + ecx]    ; Se mueve el valor desencriptado encontrado a eax
+    ret                             ; Se retorna de la función
 
 fillEncryptedTable:
-    mov     [encTable + ecx], ax
-    mov     [b], eax
-    mov     eax, ecx
-    shr     ecx, 1
-    push    ecx
-    jmp     RSADecryption
+    mov     [encTable + ecx], ax    ; Se almacena ax a la posición designada en la tabla encriptada
+    mov     [b], eax                ; Se mueve eax a la variable b
+    mov     eax, ecx                ; Se mueve ecx a eax
+    shr     ecx, 1                  ; Se divide eax entre 2 y se almacena en ecx
+    push    ecx                     ; Se almacena ecx en el stack
+    jmp     RSADecryption           ; Se salta al algoritmo de desencripción
 
 RSADecryption:
     mov     bx, [n]                 ; Se mueve el valor de n a bx, n es el módulo
@@ -46,7 +46,7 @@ RSADecryption:
     
 RSADecryptionAux:
     mov     eax, 0                  ; Ya que n es 1, el resultado es 0, por lo que se almacena en eax
-    jmp     fillDecryptedTable
+    jmp     fillDecryptedTable      ; Se salta a la función para llenar la tabla desencriptada
     
 RSADecryptionAux2:
     mov     eax, [e]                ; Se mueve el exponente en eax
@@ -61,7 +61,7 @@ RSADecryptionAux2:
     
 RSADecryptionAux3:
     mov     eax, [r]                ; Ya que e es menor o igual que 0, esto quiere decir que se encontró la respuesta, esta se almacena en eax
-    jmp     fillDecryptedTable
+    jmp     fillDecryptedTable      ; Se salta a la función para llenar la tabla desencriptada
     
 RSADecryptionAux4:
     mov     eax, [r]                ; Se mueve r a eax
@@ -75,7 +75,7 @@ RSADecryptionAux4:
     
 RSADecryptionAux5:
     mov     eax, [e]                ; Se mueve e a eax.
-    shr     eax, 1
+    shr     eax, 1                  ; Se divide eax entre 2 y se almacena en eax
     mov     [e], eax                ; Se almacena el resultado en e
     mov     eax, [b]                ; Se mueve b a eax
     mul     eax                     ; Se multiplica eax (b) por eax (b)
@@ -86,6 +86,6 @@ RSADecryptionAux5:
     jmp     RSADecryptionAux2       ; Se retorna a la función auxiliar 2, el inicio del loop
     
 fillDecryptedTable:
-    pop     ecx
-    mov     [decTable + ecx], al
-    ret
+    pop     ecx                     ; Se saca ecx del stack
+    mov     [decTable + ecx], al    ; Se mueve el valor desencriptado en la posición definida en la tabla
+    ret                             ; Se retorna de la función
