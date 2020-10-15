@@ -13,33 +13,31 @@ def start():
     ih.createDecImage()
 
     encTitle = tk.Label(master=window, text="Imagen Encriptada", width=30, height=1)
-    encTitle.place(x=160, y=100)
+    encTitle.place(x=370, y=100)
     encImg = tk.PhotoImage(file='encrypted.png')
-    #encImg = encImg.subsample(2, 2)
-    encPanel = tk.Label(master=window, image=encImg, width=480, height=320)
+    encPanel = tk.Label(master=window, image=encImg, width=960, height=640)
     encPanel.image = encImg
     encPanel.place(x=50, y=150)
 
     decTitle = tk.Label(master=window, text="Imagen Desencriptada", width=30, height=1)
-    decTitle.place(x=550, y=100)
+    decTitle.place(x=1390, y=100)
     decImg = tk.PhotoImage(file='decrypted.png')
-    decImg = decImg.subsample(2, 2)
-    decPanel = tk.Label(master=window, image=decImg, width=240, height=320)
+    decPanel = tk.Label(master=window, image=decImg, width=480, height=640)
     decPanel.image = decImg
-    decPanel.place(x=550, y=150)
+    decPanel.place(x=1250, y=150)
 
 #Método para crear la ventana principal
 def createWindow():
     global window
 
     window = tk.Tk()
-    window.geometry("850x500")
+    window.geometry("1680x850")
 
     title = tk.Label(master=window, text="RSA Decryptor", width=30, height=1)
-    title.place(x=300, y=0)
+    title.place(x=800, y=0)
 
     button = tk.Button(master=window, text="Iniciar \n Desencripción", width=10, height=2, command=start)
-    button.place(x=365, y=25)
+    button.place(x=865, y=25)
 
     window.mainloop()
 
