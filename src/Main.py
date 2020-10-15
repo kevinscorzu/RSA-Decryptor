@@ -15,6 +15,7 @@ def start():
     encTitle = tk.Label(master=window, text="Imagen Encriptada", width=30, height=1)
     encTitle.place(x=160, y=100)
     encImg = tk.PhotoImage(file='encrypted.png')
+    #encImg = encImg.subsample(2, 2)
     encPanel = tk.Label(master=window, image=encImg, width=480, height=320)
     encPanel.image = encImg
     encPanel.place(x=50, y=150)

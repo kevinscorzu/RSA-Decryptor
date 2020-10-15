@@ -20,8 +20,8 @@ section .bss
     imageDescriptor  resb    4          ; Variable donde se almacena el descriptor del archivo de la imagen encriptada
     keyDescriptor    resb    4          ; Variable donde se almacena el descriptor del archivo de la llave privada
     dImageDescriptor resb    4          ; Variable donde se almacena el descriptor del archivo de la imagen desencriptada
-    encImage         resb    3000000    ; Variable donde se almacena la imagen encriptada
-    decImage         resb    6000000    ; Variable donde se almacena la imagen desencriptada
+    encImage         resb    5000000    ; Variable donde se almacena la imagen encriptada
+    decImage         resb    5000000    ; Variable donde se almacena la imagen desencriptada
     key              resb    100        ; Variable donde se almacena la llave privada
     d                resw    1          ; Variable donde se almacena d de la llave privada
     n                resw    1          ; Variable donde se almacena n de la llave privada

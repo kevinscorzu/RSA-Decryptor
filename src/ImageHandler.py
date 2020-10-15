@@ -25,17 +25,17 @@ def readDecFile():
 #Método encargado de crear la imagen con base al archivo encriptado
 def createEncImage():
     encImage = readEncFile()
-    encNpArray = np.array(encImage)
+    encNpArray = np.array(encImage, dtype=np.uint8)
     encNpArray = np.reshape(encNpArray, (640, 960))
-    encImageData = Image.fromarray((encNpArray * 255).astype(np.uint16))
+    encImageData = Image.fromarray(encNpArray, 'L')
     encImageData.save('encrypted.png')
 
 #Método encargado de crear la imagen con base al archivo desencriptado
 def createDecImage():
     decImage = readDecFile()
-    decNpArray = np.array(decImage)
+    decNpArray = np.array(decImage, dtype=np.uint8)
     decNpArray = np.reshape(decNpArray, (640, 480))
-    decImageData = Image.fromarray((decNpArray * 255).astype(np.uint16))
+    decImageData = Image.fromarray(decNpArray, 'L')
     decImageData.save('decrypted.png')
 
 
